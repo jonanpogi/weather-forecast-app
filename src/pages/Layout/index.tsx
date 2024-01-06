@@ -1,6 +1,7 @@
-import { Toolbar, AppBar, Button, Box } from "@mui/material";
+import { Toolbar, AppBar, Box, Stack, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import CloudIcon from "@mui/icons-material/Cloud";
+import AppButton from "../../components/AppButton";
 
 const Layout = () => {
   return (
@@ -17,8 +18,16 @@ const Layout = () => {
             justifyContent: "space-between",
           }}
         >
-          <CloudIcon fontSize="large" />
-          <Button color="inherit">Logout</Button>
+          <Stack flexDirection="row" alignItems="center">
+            <CloudIcon
+              fontSize="large"
+              sx={{
+                marginRight: 2,
+              }}
+            />
+            <Typography variant="h6">Weather Forecast</Typography>
+          </Stack>
+          <AppButton variant="contained">LOGOUT</AppButton>
         </Toolbar>
       </AppBar>
       <Outlet />
