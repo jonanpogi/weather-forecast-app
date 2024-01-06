@@ -1,7 +1,19 @@
 import { Stack, Typography } from "@mui/material";
 import AppButton from "../../components/AppButton";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Landing = () => {
+  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated && !isLoading) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
+
   return (
     <Stack
       flexGrow={1}
@@ -21,7 +33,9 @@ const Landing = () => {
         Please login with your Github user to use application and view the
         weather in your city.
       </Typography>
-      <AppButton variant="contained">Login</AppButton>
+      <AppButton variant="contained" onClick={() => loginWithRedirect()}>
+        Login
+      </AppButton>
     </Stack>
   );
 };

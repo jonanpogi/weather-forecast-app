@@ -2,8 +2,11 @@ import { Toolbar, AppBar, Box, Stack, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import CloudIcon from "@mui/icons-material/Cloud";
 import AppButton from "../../components/AppButton";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Layout = () => {
+  const { logout, isAuthenticated } = useAuth0();
+
   return (
     <Box id="layout">
       <AppBar
@@ -27,7 +30,16 @@ const Layout = () => {
             />
             <Typography variant="h6">Weather Forecast</Typography>
           </Stack>
-          <AppButton variant="contained">LOGOUT</AppButton>
+          {isAuthenticated && (
+            <AppButton
+              variant="contained"
+              onClick={() =>
+                logout({ logoutParams: { returnTo: window.location.origin } })
+              }
+            >
+              Logout
+            </AppButton>
+          )}
         </Toolbar>
       </AppBar>
       <Outlet />
