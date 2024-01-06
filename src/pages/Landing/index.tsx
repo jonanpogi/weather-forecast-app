@@ -12,7 +12,7 @@ const Landing = () => {
     if (isAuthenticated && !isLoading) {
       navigate("/");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, isLoading]);
 
   return (
     <Stack

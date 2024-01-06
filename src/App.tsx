@@ -1,35 +1,7 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Error from "./pages/Error";
-import Layout from "./pages/Layout";
-import Landing from "./pages/Landing";
-import AppPrivateRoute from "./components/AppPrivateRoute";
-import Home from "./pages/Home";
+import { RouterProvider } from "react-router-dom";
 import { AppState, Auth0Provider } from "@auth0/auth0-react";
 import constants from "./utils/constants";
-
-const router = createBrowserRouter([
-  {
-    element: <Layout />,
-    errorElement: <Error />,
-    children: [
-      // Public routes
-      {
-        path: "/landing",
-        element: <Landing />,
-      },
-      // Private routes
-      {
-        element: <AppPrivateRoute />,
-        children: [
-          {
-            path: "/",
-            element: <Home />,
-          },
-        ],
-      },
-    ],
-  },
-]);
+import router from "./router";
 
 const App = () => {
   const onRedirectCallback = (appState?: AppState) => {
