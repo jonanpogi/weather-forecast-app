@@ -1,3 +1,4 @@
+import { Box, Typography } from "@mui/material";
 import { useRouteError } from "react-router-dom";
 
 const Error = () => {
@@ -14,13 +15,23 @@ const Error = () => {
   }
 
   return (
-    <div style={{textAlign: "center"}}>
-      <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
-      <p>
+    <Box
+      id="error"
+      style={{
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Typography variant="h3" gutterBottom>
+        Oops...
+      </Typography>
+      <Typography variant="subtitle1" gutterBottom>
+        Sorry, an unexpected error has occurred.
+      </Typography>
+      <Typography variant="subtitle2" style={{ fontStyle: "italic" }}>
         <i>{errorMessage as string}</i>
-      </p>
-    </div>
+      </Typography>
+    </Box>
   );
 };
 
