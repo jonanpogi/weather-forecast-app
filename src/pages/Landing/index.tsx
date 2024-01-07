@@ -20,6 +20,7 @@ const Landing = () => {
       direction="column"
       justifyContent="center"
       alignItems="center"
+      padding={5}
     >
       <Typography variant="h5">
         Welcome to the weather forecast web application!

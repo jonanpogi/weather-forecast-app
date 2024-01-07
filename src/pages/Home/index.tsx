@@ -4,31 +4,52 @@ import AppButton from "../../components/AppButton";
 import AppTextField from "../../components/AppTextField";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
+import constants from "../../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { user } = useAuth0();
   const [city, setCity] = useState("");
-  const [error, setError] = useState(false);
-
-  const errorMessage = error ? "City is required" : "";
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const onChangeCity = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
     if (value.length > 0) {
-      setError(false);
+      setErrorMessage("");
     }
 
     setCity(value);
   };
 
-  const displayWeather = () => {
+  const displayWeather = async () => {
+    if (city.length > 0) {
+      setErrorMessage("");
+    }
+
     if (!city) {
-      setError(true);
+      setErrorMessage("City is required");
       return;
     }
 
-    console.log("Display weather for city:", city);
+    try {
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${constants.VITE_WEATHER_API_KEY}`
+      );
+
+      if (!response.ok) {
+        throw new Error("City not found");
+      }
+
+      const data = await response.json();
+
+      navigate("/weather", { state: { data } });
+    } catch (error) {
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      }
+    }
   };
 
   return (
@@ -46,7 +67,7 @@ const Home = () => {
         {`https://github.com/${user?.nickname}`}
       </Link>
       <AppTextField
-        error={error}
+        error={errorMessage.length > 0}
         helperText={errorMessage}
         value={city}
         onChange={onChangeCity}
