@@ -34,17 +34,23 @@ const Home = () => {
     }
 
     try {
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${constants.VITE_WEATHER_API_KEY}`
-      );
+      const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${constants.VITE_WEATHER_API_KEY}`;
 
+      const response = await fetch(url);
+
+      // validate response status
       if (!response.ok) {
         throw new Error("City not found");
       }
 
       const data = await response.json();
 
-      navigate("/weather", { state: { data } });
+      // validate response data
+      if (!data.length) {
+        throw new Error("City not found");
+      }
+
+      navigate("/weather", { state: { geocode: data[0] } });
     } catch (error) {
       if (error instanceof Error) {
         setErrorMessage(error.message);

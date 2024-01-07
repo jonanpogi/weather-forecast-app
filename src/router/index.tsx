@@ -4,6 +4,7 @@ import Landing from "../pages/Landing";
 import AppPrivateRoute from "./AppPrivateRoute";
 import Home from "../pages/Home";
 import { createBrowserRouter } from "react-router-dom";
+import Weather from "../pages/Weather";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
           {
             path: "/",
             element: <Home />,
+          },
+          {
+            path: "/weather",
+            element: <Weather />,
           },
         ],
       },

@@ -1,4 +1,4 @@
-import { Toolbar, AppBar, Box, Stack, Typography } from "@mui/material";
+import { Toolbar, AppBar, Box, Stack, Typography, Hidden } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import CloudIcon from "@mui/icons-material/Cloud";
 import AppButton from "../../components/AppButton";
@@ -28,7 +28,9 @@ const Layout = () => {
                 marginRight: 2,
               }}
             />
-            <Typography variant="h6">Weather Forecast</Typography>
+            <Hidden smDown>
+              <Typography variant="h6">Weather Forecast</Typography>
+            </Hidden>
           </Stack>
           {isAuthenticated && (
             <AppButton
